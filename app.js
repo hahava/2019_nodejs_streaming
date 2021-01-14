@@ -29,13 +29,14 @@ var loginRouter = require('./routes/login');
 var videoRouter = require('./routes/video');
 var playerRouter = require('./routes/player');
 var logoutRouter = require('./routes/logout');
+var boardRouter = require('./routes/board');
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/video', videoRouter);
 app.use('/player', playerRouter);
 app.use('/logout', logoutRouter);
-
+app.use('/board', boardRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     // next(createError(404));

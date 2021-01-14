@@ -1,0 +1,3 @@
+# db, mail 계정등의 설정파일을 json형태로 넣을 것
+
+1. 메일계정 email.json
