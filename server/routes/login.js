@@ -7,6 +7,7 @@ const crypto = require('crypto');
 // login page
 router.get('/', (req, res, next) => {
     if (req.session.userId != null) {
+        console.log("login");
         res.redirect('/');
     } else {
         res.render("login")
