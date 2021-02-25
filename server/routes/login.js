@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const crypto = require('crypto');
+import crypto from 'crypto';
+import express from 'express';
 
-// login controller
+const router = express.Router();
 
 // login page
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     if (req.session.userId != null) {
+        console.log("login");
         res.redirect('/');
     } else {
         res.render("login")
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 // login post request
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
 
     const id = 'hafamily';
     const pw = 'ae5cf86f2a3a99a943b420c20d7df82f5e6fbed70349f7b1918e0b369bb0c4fd';
@@ -38,4 +38,4 @@ router.post('/', function (req, res) {
     }
 });
 
-module.exports = router;
+export default router;
