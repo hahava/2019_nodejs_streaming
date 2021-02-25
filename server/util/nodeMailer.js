@@ -3,8 +3,8 @@ const router = express.Router();
 const nodemailer = require("nodemailer");
 const fs = require('fs');
 
-const main = async function () {
-    var emailAddress = JSON.parse(fs.readFileSync('./config/email.json', 'utf-8'));
+export const mailer = async function () {
+    const emailAddress = JSON.parse(fs.readFileSync('./config/email.json', 'utf-8'));
     let transporter = nodemailer.createTransport({
         host: "smtp.daum.net",
         port: 465,
@@ -28,6 +28,3 @@ const main = async function () {
     console.log("Message sent: %s", info.messageId);
     console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 };
-
-module.exports = router;
-module.exports.sendMail = main;

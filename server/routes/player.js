@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import fs from 'fs';
+
 const router = express.Router();
-const fs = require('fs');
 
 router.get('/*', (req, res, next) => {
     if (req.session.userId != null) {
@@ -58,4 +59,4 @@ router.get('/watch/', (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

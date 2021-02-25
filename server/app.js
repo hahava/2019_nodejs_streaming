@@ -1,11 +1,16 @@
-import createError from 'http-errors';
-import express from 'express';
-import path from 'path';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan';
-import express_session from 'express-session';
 import "core-js/stable";
+import express from 'express';
+import express_session from 'express-session';
+import logger from 'morgan';
+import path from 'path';
 import "regenerator-runtime/runtime";
+import boardRouter from './routes/board';
+import indexRouter from './routes/index';
+import loginRouter from './routes/login';
+import logoutRouter from './routes/logout';
+import playerRouter from './routes/player';
+import videoRouter from './routes/video';
 
 const app = express();
 
@@ -23,17 +28,10 @@ app.use(express_session({
         maxAge: 1000 * 60 * 120
     }
 }))
-// view engine setup
+
+// setup view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-// Router
-const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login');
-const videoRouter = require('./routes/video');
-const playerRouter = require('./routes/player');
-const logoutRouter = require('./routes/logout');
-const boardRouter = require('./routes/board');
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
@@ -58,4 +56,4 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error');
 })
-module.exports = app;
+export default app;

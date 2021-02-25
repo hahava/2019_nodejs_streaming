@@ -1,8 +1,7 @@
-const express = require('express');
-const router = express.Router();
-const crypto = require('crypto');
+import crypto from 'crypto';
+import express from 'express';
 
-// login controller
+const router = express.Router();
 
 // login page
 router.get('/', (req, res, next) => {
@@ -39,4 +38,4 @@ router.post('/', (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

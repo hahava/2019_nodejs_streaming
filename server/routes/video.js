@@ -1,9 +1,7 @@
-const express = require('express');
+import express from 'express';
+import fs from 'fs';
+
 const router = express.Router();
-const fs = require('fs');
-
-
-// Video
 
 router.get('/*', (req, res, next) => {
     if (req.session.userId == null) {
@@ -14,9 +12,9 @@ router.get('/*', (req, res, next) => {
 });
 
 router.get('/:type', (req, res) => {
-    var type = req.params.type;
-    var fileList = fs.readdirSync('./public/video/' + type);
+    const type = req.params.type;
+    const fileList = fs.readdirSync('./public/video/' + type);
     res.render('video', { 'list': fileList, 'type': type });
 });
 
-module.exports = router;
+export default router;

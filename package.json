@@ -1,9 +1,11 @@
 {
   "name": "moviestream",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node ./server/bin/www"
+    "clean": "rm -rf ./dist",
+    "build": "npx babel ./server --out-dir dist; cp -R ./server/views ./dist",
+    "start": "node ./dist/bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
