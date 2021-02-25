@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const fs = require('fs');
+import express from 'express';
+import fs from 'fs';
 
-router.get('/*', function (req, res, next) {
+const router = express.Router();
+
+router.get('/*', (req, res, next) => {
     if (req.session.userId != null) {
         next();
     } else {
@@ -10,7 +11,7 @@ router.get('/*', function (req, res, next) {
     }
 });
 
-router.get('/', function (req, res) {
+router.get('/', (req, res) => {
     const type = req.query.type;
     const file = req.query.file;
     res.render('player', {
@@ -18,7 +19,7 @@ router.get('/', function (req, res) {
     });
 });
 
-router.get('/watch/', function (req, res) {
+router.get('/watch/', (req, res) => {
     const type = req.query.type;
     const file = req.query.file;
     console.log(type);
@@ -38,7 +39,7 @@ router.get('/watch/', function (req, res) {
             : fileSize - 1
 
         const chunksize = (end - start) + 1
-        const file = fs.createReadStream(path, {start, end})
+        const file = fs.createReadStream(path, { start, end })
         const head = {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
@@ -57,4 +58,5 @@ router.get('/watch/', function (req, res) {
         fs.createReadStream(path).pipe(res)
     }
 });
-module.exports = router;
+
+export default router;

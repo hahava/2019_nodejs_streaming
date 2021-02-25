@@ -1,12 +1,15 @@
 {
   "name": "moviestream",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "clean": "rm -rf ./dist",
+    "build": "npx babel ./server --out-dir dist; cp -R ./server/views ./dist",
+    "start": "node ./dist/bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
+    "core-js": "^3.9.0",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
@@ -14,6 +17,12 @@
     "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
-    "nodemailer": "^5.1.1"
+    "nodemailer": "^5.1.1",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.1",
+    "@babel/preset-env": "^7.13.5"
   }
 }
