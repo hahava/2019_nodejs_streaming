@@ -5,7 +5,7 @@ const fs = require('fs');
 
 // Video
 
-router.get('/*', function (req, res, next) {
+router.get('/*', (req, res, next) => {
     if (req.session.userId == null) {
         res.redirect('/login');
     } else {
@@ -13,10 +13,10 @@ router.get('/*', function (req, res, next) {
     }
 });
 
-router.get('/:type', function (req, res) {
+router.get('/:type', (req, res) => {
     var type = req.params.type;
     var fileList = fs.readdirSync('./public/video/' + type);
-    res.render('video', {'list': fileList, 'type': type});
+    res.render('video', { 'list': fileList, 'type': type });
 });
 
 module.exports = router;

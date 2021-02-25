@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var mailer = require('../util/nodeMailer');
-var fs = require('fs');
-router.get('/', function (req, res, next) {
+const express = require('express');
+const router = express.Router();
+const mailer = require('../util/nodeMailer');
+
+router.get('/', (req, res, next) => {
     mailer.sendMail().catch(console.error);
     res.send("success!");
 });

@@ -1,20 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var express_session = require('express-session');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const express_session = require('express-session');
 
-var app = express();
+const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express_session({
     key: 'myFamily',
     secret: "kalin",
+    resave: true,
+    saveUninitialized: true,
     cookie: {
         maxAge: 1000 * 60 * 120
     }
@@ -24,12 +26,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Router
-var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/login');
-var videoRouter = require('./routes/video');
-var playerRouter = require('./routes/player');
-var logoutRouter = require('./routes/logout');
-var boardRouter = require('./routes/board');
+const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
+const videoRouter = require('./routes/video');
+const playerRouter = require('./routes/player');
+const logoutRouter = require('./routes/logout');
+const boardRouter = require('./routes/board');
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
@@ -37,14 +39,15 @@ app.use('/video', videoRouter);
 app.use('/player', playerRouter);
 app.use('/logout', logoutRouter);
 app.use('/board', boardRouter);
+
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     // next(createError(404));
     res.render('customerror');
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

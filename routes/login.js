@@ -5,7 +5,7 @@ const crypto = require('crypto');
 // login controller
 
 // login page
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     if (req.session.userId != null) {
         res.redirect('/');
     } else {
@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 // login post request
-router.post('/', function (req, res) {
+router.post('/', (req, res) => {
 
     const id = 'hafamily';
     const pw = 'ae5cf86f2a3a99a943b420c20d7df82f5e6fbed70349f7b1918e0b369bb0c4fd';
