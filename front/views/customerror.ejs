@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <title>hafamily_streaming</title>
+    <% include fragment/metatag.ejs %>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/google-font.css">
+    <link rel="stylesheet" href="/css/customerError.css">
+</head>
+
+
+<body>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height:100vh">
+        <!-- Error Page -->
+        <div class="error">
+            <div class="container-floud">
+                <div class="col-xs-12 ground-color text-center">
+                    <div class="container-error-404">
+                        <div class="clip">
+                            <div class="shadow"><span class="digit thirdDigit"></span></div>
+                        </div>
+                        <div class="clip">
+                            <div class="shadow"><span class="digit secondDigit"></span></div>
+                        </div>
+                        <div class="clip">
+                            <div class="shadow"><span class="digit firstDigit"></span></div>
+                        </div>
+                        <div class="msg">OH!<span class="triangle"></span></div>
+                    </div>
+                    <h2 class="h1">Sorry! Page not found</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/customerError.js"></script>
+<% include fragment/commonScript.ejs.ejs %>
+</body>
+</html>
