@@ -6,7 +6,7 @@ import logger from 'morgan';
 import path from 'path';
 import 'regenerator-runtime/runtime';
 import boardRouter from './routes/board';
-import indexRouter from './routes/index';
+import indexRouter from './routes';
 import loginRouter from './routes/login';
 import logoutRouter from './routes/logout';
 import playerRouter from './routes/player';
