@@ -39,4 +39,4 @@ lerna-debug.log*
 node_modules/
 jspm_packages/
 
-dist/
+back-end/dist/
