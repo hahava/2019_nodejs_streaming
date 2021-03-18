@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import Error from './components/Error';
+import Videos from './components/Videos';
 
 function App() {
   const isLoggedIn = true;
@@ -14,6 +15,10 @@ function App() {
         <Switch>
           <Route path={['/index', '/']} exact={true}>
             {isLoggedIn ? index() : <Login/>}
+          </Route>
+          <Route path="/video/:type">
+            <Nav></Nav>
+            <Videos/>
           </Route>
           <Route component={Error}/>
         </Switch>
