@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm run --prefix front-end build; npm run --prefix back-end build"
+    "build": "npm run --prefix back-end build; npm run --prefix front-end build",
+    "clean": "rm -rf back-end/dist",
+    "start": "node back-end/dist/bin/www.js"
   },
   "repository": {
     "type": "git",

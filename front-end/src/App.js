@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/index" exact={true}>
+          <Route path={['/index', '/']} exact={true}>
             {isLoggedIn ? index() : <Login/>}
           </Route>
           <Route component={Error}/>

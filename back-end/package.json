@@ -3,9 +3,9 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "clean": "rm -rf ../dist",
-    "build": "npx babel server --out-dir ../dist; cp -R front ../dist",
-    "start": "node ../dist/bin/www"
+    "clean": "rm -rf dist",
+    "build": "npx babel server --out-dir dist",
+    "start": "node dist/bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
