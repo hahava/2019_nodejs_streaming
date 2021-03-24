@@ -3,21 +3,26 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist; rm -rf ./server/front",
+    "prebuild": "npm run clean && npm install",
     "build": "npx babel server --out-dir dist",
+    "watch": "npx nodemon -r esm server/bin/www.js",
     "start": "node dist/bin/www"
   },
   "dependencies": {
+    "@std/esm": "^0.26.0",
     "cookie-parser": "~1.4.3",
     "core-js": "^3.9.0",
     "crypto": "^1.0.1",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
+    "esm": "^3.2.25",
     "express": "~4.16.0",
     "express-session": "^1.15.6",
     "http-errors": "~1.6.2",
     "morgan": "~1.9.0",
     "nodemailer": "^5.1.1",
+    "nodemon": "^2.0.7",
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {

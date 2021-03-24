@@ -1,24 +1,18 @@
 {
   "name": "2019_nodejs_streaming",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "build": "npm run --prefix back-end build; npm run --prefix front-end build",
-    "clean": "rm -rf back-end/dist",
-    "start": "node back-end/dist/bin/www.js"
+    "build": "npm run --prefix back-end build && npm run --prefix front-end build",
+    "start": "node back-end/dist/bin/www.js",
+    "install": "echo \"please check 'package.json'\nThis is multi project so that only allowed 'build' and 'start' command\"; exit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hahava/2019_nodejs_streaming.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hahava/2019_nodejs_streaming/issues"
   },
-  "homepage": "https://github.com/hahava/2019_nodejs_streaming#readme",
-  "dependencies": {
-    "react-router-dom": "^5.2.0"
-  }
+  "homepage": "https://github.com/hahava/2019_nodejs_streaming#readme"
 }
