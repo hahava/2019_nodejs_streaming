@@ -18,8 +18,5 @@
   "bugs": {
     "url": "https://github.com/hahava/2019_nodejs_streaming/issues"
   },
-  "homepage": "https://github.com/hahava/2019_nodejs_streaming#readme",
-  "dependencies": {
-    "react-router-dom": "^5.2.0"
-  }
+  "homepage": "https://github.com/hahava/2019_nodejs_streaming#readme"
 }
