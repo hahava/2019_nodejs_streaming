@@ -19,6 +19,8 @@ app.set('views', path.join(__dirname, '/front'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+app.use('/api/auth', loginRouter);
+
 app.get('*', (req, res) => {
   res.render('index.html');
 });
