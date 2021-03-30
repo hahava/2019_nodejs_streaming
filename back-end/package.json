@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist; rm -rf ./server/front",
+    "clean": "rm -rf dist",
     "prebuild": "npm run clean && npm install",
     "build": "npx babel server --out-dir dist",
     "watch": "npx nodemon -r esm server/bin/www.js",
