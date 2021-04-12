@@ -2616,6 +2616,11 @@
     "follow-redirects" "^1.0.0"
     "requires-port" "^1.0.0"
 
+"http-status-codes@^2.1.4":
+  "integrity" "sha512-MZVIsLKGVOVE1KEnldppe6Ij+vmemMuApDfjhVSLzyYP+td0bREEYyAoIw9yFePoBXManCuBqmiNP5FqJS5Xkg=="
+  "resolved" "https://registry.npmjs.org/http-status-codes/-/http-status-codes-2.1.4.tgz"
+  "version" "2.1.4"
+
 "human-signals@^2.1.0":
   "integrity" "sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw=="
   "resolved" "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz"

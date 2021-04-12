@@ -1,33 +1,42 @@
-export const register = async (req, res, next) => {
-  const { id, password } = req.body;
-  console.log(id, password);
-  res.send('hello register');
+import { StatusCodes } from 'http-status-codes';
+import UserAuth from '../model/userAuth';
+
+const isValidateRequest = (id, password) => (
+  id !== null && id !== undefined && password !== null && password !== undefined
+);
+
+export const register = async (req, res) => {
+  const { userId, password } = req.body;
+
+  if (!isValidateRequest(userId, password)) {
+    res.status(StatusCodes.BAD_REQUEST)
+       .send('id or password must not be null');
+    return;
+  }
+
+  const result = await UserAuth.findByUsername(userId);
+  if (result) {
+    res.status(StatusCodes.CONFLICT)
+       .send('id conflict');
+    return;
+  }
+
+  const user = new UserAuth({
+    userId,
+  });
+
+  await user.setPassword(password);
+  await user.save();
+
+  res.status(StatusCodes.OK).send();
 };
 
-export const doLogin = async (req, res, next) => {
+export const doLogin = async (req, res) => {
+
+
   res.send('hello world');
-  // const id = 'hafamily';
-  // const pw = 'ae5cf86f2a3a99a943b420c20d7df82f5e6fbed70349f7b1918e0b369bb0c4fd';
-  //
-  // const inputId = req.body.username;
-  // const inputPw = req.body.password;
-  //
-  // const secret = 'abcdefg';
-  // const hash = crypto.createHmac('sha256', secret)
-  //   .update(inputPw)
-  //   .digest('hex');
-  // console.log(hash);
-  //
-  // if (inputId === id && hash === pw) {
-  //   req.session.userId = id;
-  //   res.status(200)
-  //     .redirect('/');
-  // } else {
-  //   res.send('<script>alert("암호가 틀렸습니다.");'
-  //     + 'history.go(-1)</script>');
-  // }
 };
 
-export const doLogout = async (req, res, next) => {
+export const doLogout = async (req, res) => {
   res.send('logout');
 };
