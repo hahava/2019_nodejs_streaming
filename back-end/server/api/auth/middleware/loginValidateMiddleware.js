@@ -5,6 +5,8 @@ import ErrorMessage from '../../../common/util/errorMessage';
 const loginValidateMiddleware = (req, res, next) => {
   const { userId, password } = req.body;
 
+  console.log(userId, password);
+
   if (commonUtil.isEmpty(userId)) {
     res.status(StatusCodes.UNAUTHORIZED)
        .send(ErrorMessage.ID_NOT_NULL);
