@@ -14,7 +14,7 @@ export const register = async (req, res) => {
     return;
   }
 
-  const result = await UserAuth.findByUsername(userId);
+  const result = await UserAuth.findByUserId(userId);
   if (result) {
     res.status(StatusCodes.CONFLICT)
        .send('id conflict');
@@ -32,11 +32,39 @@ export const register = async (req, res) => {
 };
 
 export const doLogin = async (req, res) => {
+  const { userId, password } = req.body;
 
+  if (!isValidateRequest(userId, password)) {
+    res.status(StatusCodes.BAD_REQUEST)
+       .send('id or password must not be null');
+    return;
+  }
 
-  res.send('hello world');
+  const user = await UserAuth.findByUserId(userId);
+  if (!user) {
+    res.status(StatusCodes.UNAUTHORIZED)
+       .send('id conflict');
+    return;
+  }
+
+  const valid = await user.checkPassword(password);
+  if (!valid) {
+    res.status(StatusCodes.UNAUTHORIZED)
+       .send();
+    return;
+  }
+
+  const token = user.generateToken();
+  res.cookie('login_token', token, {
+    maxAge: 1000 * 60 * 60 * 24 * 7, // 7days
+    httpOnly: true,
+  })
+    .status(StatusCodes.OK)
+    .send();
 };
 
 export const doLogout = async (req, res) => {
-  res.send('logout');
+  res.clearCookie('login_token')
+     .status(StatusCodes.NO_CONTENT)
+     .send();
 };

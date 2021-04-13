@@ -1,5 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const SALT = 10;
 
@@ -18,8 +19,16 @@ userAuthSchema.methods.checkPassword = async function(password) {
   return result;
 };
 
-userAuthSchema.statics.findByUsername = function(userId) {
+userAuthSchema.statics.findByUserId = function(userId) {
   return this.findOne({ userId });
+};
+
+userAuthSchema.methods.generateToken = function() {
+  return jwt.sign(
+    { userId: this.userId },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d' },
+  );
 };
 
 const UserAuth = mongoose.model('UserAuth', userAuthSchema);

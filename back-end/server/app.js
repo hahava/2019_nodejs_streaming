@@ -6,6 +6,7 @@ import 'regenerator-runtime/runtime';
 import dotEnv from 'dotenv';
 import mongoose from 'mongoose';
 import loginRouter from './api/auth/route/loginRoute';
+import jwtMiddleware from './common/middleware/jwtMiddleware';
 
 dotEnv.config({ path: path.join(__dirname, './.env') });
 
@@ -19,6 +20,7 @@ app.set('views', path.join(__dirname, '/front'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
+app.use(jwtMiddleware)
 app.use('/api/auth', loginRouter);
 
 app.get('*', (req, res) => {
