@@ -20,7 +20,7 @@ app.set('views', path.join(__dirname, '/front'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 
-app.use(jwtMiddleware)
+app.use(jwtMiddleware);
 app.use('/api/auth', loginRouter);
 
 app.get('*', (req, res) => {

@@ -1,18 +1,15 @@
 import { StatusCodes } from 'http-status-codes';
 import UserAuth from '../model/userAuth';
+import ErrorMessage from '../../../common/util/errorMessage';
 
-const isValidateRequest = (id, password) => (
-  id !== null && id !== undefined && password !== null && password !== undefined
-);
-
+/*
+* {
+*   userId : "user"
+*   password : "1234"
+* }
+* */
 export const register = async (req, res) => {
   const { userId, password } = req.body;
-
-  if (!isValidateRequest(userId, password)) {
-    res.status(StatusCodes.BAD_REQUEST)
-       .send('id or password must not be null');
-    return;
-  }
 
   const result = await UserAuth.findByUserId(userId);
   if (result) {
@@ -31,19 +28,19 @@ export const register = async (req, res) => {
   res.status(StatusCodes.OK).send();
 };
 
+/*
+* {
+*   userId : "user"
+*   password : "1234"
+* }
+* */
 export const doLogin = async (req, res) => {
   const { userId, password } = req.body;
-
-  if (!isValidateRequest(userId, password)) {
-    res.status(StatusCodes.BAD_REQUEST)
-       .send('id or password must not be null');
-    return;
-  }
 
   const user = await UserAuth.findByUserId(userId);
   if (!user) {
     res.status(StatusCodes.UNAUTHORIZED)
-       .send('id conflict');
+       .send(ErrorMessage.LOGIN_FAIL);
     return;
   }
 
