@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import commonUtil from '../common/commonUtil';
 
 const Login = () => {
 
@@ -20,7 +21,7 @@ const Login = () => {
       password,
     })
       .then(() => {
-        localStorage.setItem('isLogined', 'true');
+        commonUtil.auth.setLogined();
         history.push('/');
       })
       .catch((error) => {
@@ -29,7 +30,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('isLogined') === 'true') {
+    if (commonUtil.auth.isLogined()) {
       history.push('/');
     }
   });

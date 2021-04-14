@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Error from './components/Error';
 import Videos from './components/Videos';
 import Home from './components/Home';
+import commonUtil from './common/commonUtil';
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    localStorage.getItem('isLogined') === 'true'
+    commonUtil.auth.isLogined()
       ? <Component {...props} />
       : <Redirect to='/login'/>
   )}/>
