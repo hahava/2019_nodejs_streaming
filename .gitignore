@@ -43,3 +43,5 @@ back-end/dist/
 back-end/server/front
 
 front/build
+
+back-end/server/.env
