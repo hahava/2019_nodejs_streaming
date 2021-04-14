@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import commonUtil from '../common/commonUtil';
 
 const Login = () => {
 
+  const history = useHistory();
+
   const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [password, setPassword] = useState('');
 
   const onUserIdChange = e => setUserId(e.target.value);
-  const onUserPwChange = e => setUserPw(e.target.value);
+  const onUserPwChange = e => setPassword(e.target.value);
 
   const submit = (e) => {
     e.preventDefault();
+
+    axios.post('/api/auth/login', {
+      userId,
+      password,
+    })
+      .then(() => {
+        commonUtil.auth.setLogined();
+        history.push('/');
+      })
+      .catch((error) => {
+        alert(error.response.message);
+      });
   };
+
+  useEffect(() => {
+    if (commonUtil.auth.isLogined()) {
+      history.push('/');
+    }
+  });
 
   return (
     <div className="container">
@@ -32,8 +55,8 @@ const Login = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="userpassword" className="float-left">User PW</label>
-                  <input id="userpassword"
+                  <label htmlFor="password" className="float-left">User PW</label>
+                  <input id="password"
                          type="password"
                          className="form-control"
                          name="password"

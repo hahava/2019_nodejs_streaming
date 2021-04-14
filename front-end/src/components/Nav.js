@@ -1,9 +1,18 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 const Nav = () => {
   const activeNavLink = {
     color: 'white',
+  };
+
+  const history = useHistory();
+
+  const logout = (e) => {
+    e.preventDefault();
+
+    localStorage.setItem('isLogined', 'false');
+    history.push('/login');
   };
 
   return (
@@ -37,7 +46,7 @@ const Nav = () => {
           </li>
         </ul>
       </div>
-      <a className="nav-link mr-3 text-white" href="/logout">Logout</a>
+      <a className="nav-link mr-3 text-white" href="#" onClick={logout}>Logout</a>
     </nav>
   );
 };

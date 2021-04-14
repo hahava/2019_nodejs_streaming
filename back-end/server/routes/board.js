@@ -1,5 +1,5 @@
 import express from 'express';
-import mailer from '../util/nodeMailer';
+import mailer from '../common/util/nodeMailer';
 
 const router = express.Router();
 
