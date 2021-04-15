@@ -5,11 +5,12 @@ const commonUtil = {
 
   auth: {
     isLogined: function() {
-      return localStorage.getItem('isLogined');
+      return localStorage.getItem('isLogined') === 'true';
     },
 
-    setLogined: function() {
-      localStorage.setItem('isLogined', 'false');
+    // true or false
+    setLogined: function(status) {
+      localStorage.setItem('isLogined', status);
     },
   },
 };
