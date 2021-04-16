@@ -7,6 +7,7 @@ import Error from './components/Error';
 import Videos from './components/Videos';
 import Home from './components/Home';
 import commonUtil from './common/commonUtil';
+import Player from './components/Player';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <PrivateRoute path={['/index', '/']} exact={true} component={Home}/>
           <PrivateRoute path="/video/:type" exact={true} component={Videos}/>
+          <PrivateRoute path="/video/player/:fileName" exact={true} component={Player}/>
           <Route path={'/login'} exact={true} component={Login}/>
           <Route component={Error}/>
         </Switch>

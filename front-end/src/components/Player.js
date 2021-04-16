@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Player = () => {
+const Player = ({ match }) => {
+
+  console.log("?")
+  console.log(match.params.fileName);
+  console.log(match)
   return (
     <div className="container mt-5">
       <video className="mt-5" controls>
