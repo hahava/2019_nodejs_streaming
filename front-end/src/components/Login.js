@@ -21,7 +21,7 @@ const Login = () => {
       password,
     })
       .then(() => {
-        commonUtil.auth.setLogined();
+        commonUtil.auth.setLogined(true);
         history.push('/');
       })
       .catch((error) => {

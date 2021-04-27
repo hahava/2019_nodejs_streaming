@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Nav from './Nav';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Videos = ({ match }) => {
   const { type } = match.params;
+
+  const [fileNames, setFileNames] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/video/${type}`)
+      .then((result) => {
+        setFileNames(result.data);
+      });
+  }, [type]);
+
   return (
     <>
       <Nav></Nav>
@@ -25,14 +37,18 @@ const Videos = ({ match }) => {
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td></td>
-            <td>
-              <a id="file" href="">
-                fileName
-              </a>
-            </td>
-          </tr>
+          {
+            fileNames.map((file, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
+                <td>
+                  <Link to={`/video/${type}/player/${file}`}>
+                    {file}
+                  </Link>
+                </td>
+              </tr>
+            ))
+          }
           </tbody>
         </table>
       </div>

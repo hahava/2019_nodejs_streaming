@@ -3,23 +3,6 @@ import fs from 'fs';
 
 const router = express.Router();
 
-router.get('/*', (req, res, next) => {
-  if (req.session.userId != null) {
-    next();
-  } else {
-    res.redirect('/login');
-  }
-});
-
-router.get('/', (req, res) => {
-  const { type } = req.query;
-  const { file } = req.query;
-  res.render('player', {
-    type,
-    file,
-  });
-});
-
 router.get('/watch/', (req, res) => {
   const { type } = req.query;
   const { file } = req.query;

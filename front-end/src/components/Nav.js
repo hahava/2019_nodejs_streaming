@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 const Nav = () => {
   const activeNavLink = {
@@ -11,8 +12,12 @@ const Nav = () => {
   const logout = (e) => {
     e.preventDefault();
 
-    localStorage.setItem('isLogined', 'false');
-    history.push('/login');
+    axios.post('/api/auth/logout')
+      .then(() => {
+        localStorage.setItem('isLogined', 'false');
+        history.push('/login');
+      })
+      .catch(error => history.push('/home'));
   };
 
   return (

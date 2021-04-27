@@ -7,8 +7,8 @@
     "prebuild": "npm run clean && npm install",
     "build": "npx babel server --out-dir dist",
     "prewatch": "cp -r ./profile/.env ./server",
-    "watch": "npx nodemon -r esm server/bin/www.js",
-    "start": "node dist/bin/www"
+    "watch": "npx nodemon -r esm server/app.js",
+    "start": "node dist/app.js"
   },
   "dependencies": {
     "@std/esm": "^0.26.0",
