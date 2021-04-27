@@ -42,7 +42,7 @@ const Videos = ({ match }) => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>
-                  <Link to={`/video/player/${file}`}>
+                  <Link to={`/video/${type}/player/${file}`}>
                     {file}
                   </Link>
                 </td>

@@ -16,7 +16,7 @@ function App() {
         <Switch>
           <PrivateRoute path={['/index', '/']} exact={true} component={Home}/>
           <PrivateRoute path="/video/:type" exact={true} component={Videos}/>
-          <PrivateRoute path="/video/player/:fileName" exact={true} component={Player}/>
+          <PrivateRoute path="/video/:type/player/:fileName" exact={true} component={Player}/>
           <Route path={'/login'} exact={true} component={Login}/>
           <Route component={Error}/>
         </Switch>
