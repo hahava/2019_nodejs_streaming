@@ -27,4 +27,4 @@
 
 - node ~12.0.0
 - yarn ~1.22.00
-- mysql ~5.8
+- mongodb 

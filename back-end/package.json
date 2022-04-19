@@ -3,12 +3,10 @@
   "version": "0.0.2",
   "private": true,
   "scripts": {
-    "clean": "rm -rf dist",
-    "prebuild": "npm run clean && npm install",
-    "build": "npx babel server --out-dir dist",
+    "build": "npm install",
     "prewatch": "cp -r ./profile/.env ./server",
     "watch": "npx nodemon -r esm server/app.js",
-    "start": "node dist/app.js"
+    "start": "node -r esm server/app.js"
   },
   "dependencies": {
     "@std/esm": "^0.26.0",
