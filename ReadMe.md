@@ -21,10 +21,17 @@
  $ yarn start
 ```
 
+### docker
+```bash
+$ docker build -t my-nodejs-programming:latest ./
+
+$ docker run -itd my-nodejs-programming:latest
+```
+
 ### Prerequisites
 
 프로젝트 실행전 하기 software 필요
 
 - node ~12.0.0
 - yarn ~1.22.00
-- mysql ~5.8
+- mongodb 
