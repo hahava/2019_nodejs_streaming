@@ -21,6 +21,13 @@
  $ yarn start
 ```
 
+### docker
+```bash
+$ docker build -t my-nodejs-programming:latest ./
+
+$ docker run -itd my-nodejs-programming:latest
+```
+
 ### Prerequisites
 
 프로젝트 실행전 하기 software 필요
