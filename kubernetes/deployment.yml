@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nodejs-programming
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-nodejs-programming
+  template:
+    metadata:
+      labels:
+        app: my-nodejs-programming
+    spec:
+      containers:
+        - name: my-nodejs-programming
+          image: hahava/my-nodejs-programming:latest
+          ports:
+            - containerPort: 4000
