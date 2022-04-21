@@ -11,6 +11,11 @@ spec:
     metadata:
       labels:
         app: my-nodejs-programming
+      annotations:
+        manager: "hahava"
+        contact: "hahava5696@gmail.com"
+        release-version: "0.0.1"
+        changes: "none"
     spec:
       containers:
         - name: my-nodejs-programming
