@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "npm install",
-    "prewatch": "cp -r ./profile/.env ./server",
     "watch": "npx nodemon -r esm server/app.js",
     "start": "node -r esm server/app.js"
   },

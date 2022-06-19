@@ -12,7 +12,8 @@ import loginRouter from './api/auth/route/loginRoute';
 import videoRouter from './api/video/router/videoRouter'
 import jwtMiddleware from './common/middleware/jwtMiddleware';
 
-dotEnv.config({ path: path.join(__dirname, './.env') });
+const profile = process.env.NODE_PROFILE || "local";
+dotEnv.config({path: path.join(__dirname, `../profile/.env-${profile}`)});
 
 const app = express();
 
@@ -41,18 +42,18 @@ server.listen(port, () => {
   console.log("listen")
 });
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log('MongoDB is connected');
-  })
-  .catch(e => {
-    console.error(e);
-    server.close();
-  });
+// mongoose
+//   .connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     useFindAndModify: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(() => {
+//     console.log('MongoDB is connected');
+//   })
+//   .catch(e => {
+//     console.error(e);
+//     server.close();
+//   });
 
 export default app;

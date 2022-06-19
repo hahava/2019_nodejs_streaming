@@ -1,9 +1,18 @@
-FROM node:12-alpine
+FROM ubuntu:16.04
 
 ARG WORK_DIR=/app
 ARG USER=kalin
 
-RUN ["adduser", "-D", "kalin"]
+RUN apt update
+RUN apt install curl -y
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt install gcc g++ make nodejs -y
+
+RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+RUN echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt-get install yarn -y
+
+RUN ["adduser", "kalin"]
 USER ${USER}
 
 WORKDIR ${WORK_DIR}

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-nodejs-programming
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: my-nodejs-programming
@@ -19,6 +19,12 @@ spec:
     spec:
       containers:
         - name: my-nodejs-programming
-          image: hahava/my-nodejs-programming:latest
+          image: hahava/my-nodejs-programming:0.0.1
           ports:
             - containerPort: 4000
+          env:
+            - name: NODE_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: myconfigmap
+                  key: NODE_PROFILE

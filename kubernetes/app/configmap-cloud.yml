@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
+  labels:
+    app: myapplication
+  annotations:
+    description: kubernets 개발환경
+data:
+  NODE_PROFILE: dev
