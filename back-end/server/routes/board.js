@@ -1,6 +1,6 @@
 import express from 'express';
 import { StatusCodes } from 'http-status-codes';
-import mailer from '../common/util/nodeMailer';
+import mailer from '../common/util/nodeMailer.js';
 
 const router = express.Router();
 

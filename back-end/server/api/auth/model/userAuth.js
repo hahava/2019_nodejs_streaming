@@ -1,6 +1,7 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+const { Schema } = mongoose;
 
 const DEFAULT_SALT_ROUNDS = 10;
 const TOKEN_EXPIRES_IN = '7d';

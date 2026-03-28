@@ -13,6 +13,21 @@
  $ cd ./front-end; yarn watch
 ```
 
+**back-end server**
+
+```bash
+$ cd ./back-end
+$ npm install
+$ npm run start
+```
+
+**back-end watch mode (auto-restart)**
+
+```bash
+$ cd ./back-end
+$ npm run watch
+```
+
 ### 빌드 배포
 
 ```bash
@@ -35,6 +50,12 @@ $ docker run -itd my-nodejs-programming:latest
 - node 22.x (`.nvmrc` / `volta`로 고정)
 - npm 10.x+
 - mongodb 
+
+`back-end/profile/.env` 에 최소 아래 값 필요
+
+- `MONGO_URL`
+- `JWT_SECRET`
+- `PORT` (optional)
 
 ### Node Version Isolation (venv 대체)
 

@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import commonUtil from '../../../common/util/commonUtil';
-import ErrorMessage from '../../../common/util/errorMessage';
+import commonUtil from '../../../common/util/commonUtil.js';
+import ErrorMessage from '../../../common/util/errorMessage.js';
 
 const sendValidationError = (res, message) => res.status(StatusCodes.BAD_REQUEST)
   .send(message);

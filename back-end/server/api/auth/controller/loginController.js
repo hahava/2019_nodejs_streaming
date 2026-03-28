@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
-import UserAuth from '../model/userAuth';
-import ErrorMessage from '../../../common/util/errorMessage';
+import UserAuth from '../model/userAuth.js';
+import ErrorMessage from '../../../common/util/errorMessage.js';
 
 const LOGIN_TOKEN_COOKIE = 'login_token';
 const ONE_WEEK_IN_MS = 1000 * 60 * 60 * 24 * 7;

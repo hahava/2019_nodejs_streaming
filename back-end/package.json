@@ -2,6 +2,7 @@
   "name": "moviestream",
   "version": "0.0.2",
   "private": true,
+  "type": "module",
   "engines": {
     "node": ">=22 <26",
     "npm": ">=10 <12"
@@ -9,11 +10,10 @@
   "scripts": {
     "build": "npm install",
     "prewatch": "cp -r ./profile/.env ./server",
-    "watch": "npx nodemon -r esm server/app.js",
-    "start": "node -r esm server/app.js"
+    "watch": "npx nodemon server/app.js",
+    "start": "node server/app.js"
   },
   "dependencies": {
-    "@std/esm": "^0.26.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "~1.4.7",
     "core-js": "^3.49.0",
@@ -21,12 +21,11 @@
     "debug": "~2.6.9",
     "dotenv": "^8.6.0",
     "ejs": "~2.5.9",
-    "esm": "^3.2.25",
     "express": "~4.16.4",
     "express-session": "^1.19.0",
     "http-errors": "~1.6.3",
     "http-status-codes": "^2.3.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^5.13.23",
     "morgan": "~1.10.1",
     "nodemailer": "^5.1.1",

@@ -1,17 +1,20 @@
 import cookieParser from 'cookie-parser';
-import 'core-js/stable';
+import 'core-js/stable/index.js';
 import express from 'express';
 import path from 'path';
-import 'regenerator-runtime/runtime';
+import { fileURLToPath } from 'url';
+import 'regenerator-runtime/runtime.js';
 import * as dotEnv from 'dotenv';
 import mongoose from 'mongoose';
 import http from 'http';
 import ejs from 'ejs';
 import morgan from 'morgan';
-import authRouter from './api/auth/route/authRoute';
-import videoRouter from './api/video/router/videoRouter';
-import jwtMiddleware from './common/middleware/jwtMiddleware';
+import authRouter from './api/auth/route/authRoute.js';
+import videoRouter from './api/video/router/videoRouter.js';
+import jwtMiddleware from './common/middleware/jwtMiddleware.js';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const FRONT_DIR = path.join(__dirname, 'front');
 const ENV_PATH = path.join(__dirname, '.env');
 const MONGO_CONNECT_OPTIONS = {

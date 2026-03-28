@@ -1,7 +1,7 @@
 import express from 'express';
 import { StatusCodes } from 'http-status-codes';
-import * as loginController from '../controller/loginController';
-import loginValidateMiddleware from '../middleware/loginValidateMiddleware';
+import * as loginController from '../controller/loginController.js';
+import loginValidateMiddleware from '../middleware/loginValidateMiddleware.js';
 
 const router = express.Router();
 const loginAttemptStore = new Map();
@@ -9,8 +9,9 @@ const LOGIN_LIMIT_WINDOW_MS = 60 * 1000;
 const MAX_LOGIN_ATTEMPTS = 5;
 
 const getLoginAttemptKey = (req) => {
-  const ip = req.ip || req.connection?.remoteAddress || 'unknown';
-  const userId = req.body?.userId || 'unknown';
+  const remoteAddress = req.connection && req.connection.remoteAddress;
+  const ip = req.ip || remoteAddress || 'unknown';
+  const userId = (req.body && req.body.userId) || 'unknown';
   return `${ip}:${userId}`;
 };
 
