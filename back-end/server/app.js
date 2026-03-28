@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 import http from 'http';
 import ejs from 'ejs';
 import morgan from 'morgan';
-import loginRouter from './api/auth/route/loginRoute';
+import authRouter from './api/auth/route/authRoute';
 import videoRouter from './api/video/router/videoRouter'
 import jwtMiddleware from './common/middleware/jwtMiddleware';
 
@@ -26,7 +26,7 @@ app.engine('html', ejs.renderFile);
 
 app.use(morgan(process.env.LOG_LEVEL));
 app.use(jwtMiddleware);
-app.use('/api/auth', loginRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/video', videoRouter);
 
 app.get('*', (req, res) => {
