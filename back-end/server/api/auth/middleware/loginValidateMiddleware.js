@@ -1,21 +1,20 @@
 import { StatusCodes } from 'http-status-codes';
-import commonUtil from '../../../common/util/commonUtil';
-import ErrorMessage from '../../../common/util/errorMessage';
+import commonUtil from '../../../common/util/commonUtil.js';
+import ErrorMessage from '../../../common/util/errorMessage.js';
+
+const sendValidationError = (res, message) => res.status(StatusCodes.BAD_REQUEST)
+  .send(message);
 
 const loginValidateMiddleware = (req, res, next) => {
-  const { userId, password } = req.body;
-
-  console.log(userId, password);
+  const { userId, password } = req.body || {};
 
   if (commonUtil.isEmpty(userId)) {
-    res.status(StatusCodes.UNAUTHORIZED)
-       .send(ErrorMessage.ID_NOT_NULL);
+    sendValidationError(res, ErrorMessage.ID_NOT_NULL);
     return;
   }
 
   if (commonUtil.isEmpty(password)) {
-    res.status(StatusCodes.UNAUTHORIZED)
-       .send(ErrorMessage.PASSWORD_NOT_NULL);
+    sendValidationError(res, ErrorMessage.PASSWORD_NOT_NULL);
     return;
   }
 

@@ -1,12 +1,16 @@
 import express from 'express';
-import mailer from '../common/util/nodeMailer';
+import { StatusCodes } from 'http-status-codes';
+import mailer from '../common/util/nodeMailer.js';
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-  mailer.sendMail()
-    .catch(console.error);
-  res.send('success!');
+router.get('/', async (req, res) => {
+  try {
+    await mailer.sendMail();
+    res.status(StatusCodes.OK).send('success!');
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('failed');
+  }
 });
 
 export default router;

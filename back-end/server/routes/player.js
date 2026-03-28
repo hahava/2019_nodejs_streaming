@@ -1,49 +1,74 @@
 import express from 'express';
 import fs from 'fs';
+import { StatusCodes } from 'http-status-codes';
 
 const router = express.Router();
 
-router.get('/watch/', (req, res) => {
+const getVideoRange = (rangeHeader, fileSize) => {
+  if (!rangeHeader) {
+    return null;
+  }
+
+  const [startText, endText] = rangeHeader.replace('bytes=', '').split('-');
+  const start = Number.parseInt(startText, 10);
+  const end = endText ? Number.parseInt(endText, 10) : fileSize - 1;
+
+  if (Number.isNaN(start) || Number.isNaN(end) || start > end || end >= fileSize) {
+    return null;
+  }
+
+  return { start, end };
+};
+
+router.get('/watch/', async (req, res) => {
   const { type } = req.query;
   const { file } = req.query;
-  console.log(type);
-  console.log(file);
 
-  const path = `./public/video/${type}/${file}`;
-  const stat = fs.statSync(path);
-  const fileSize = stat.size;
-  const { range } = req.headers;
+  if (!type || !file) {
+    res.status(StatusCodes.BAD_REQUEST).send();
+    return;
+  }
 
-  if (range) {
-    const parts = range.replace(/bytes=/, '')
-      .split('-');
-    const start = parseInt(parts[0], 10);
-    const end = parts[1]
-      ? parseInt(parts[1], 10)
-      : fileSize - 1;
+  const targetPath = `./public/video/${type}/${file}`;
 
-    const chunksize = (end - start) + 1;
-    const file = fs.createReadStream(path, {
-      start,
-      end,
-    });
+  try {
+    const stat = await fs.promises.stat(targetPath);
+    const range = getVideoRange(req.headers.range, stat.size);
+
+    if (!range && req.headers.range) {
+      res.writeHead(StatusCodes.REQUESTED_RANGE_NOT_SATISFIABLE, {
+        'Content-Range': `bytes */${stat.size}`,
+      });
+      res.end();
+      return;
+    }
+
+    if (range) {
+      const chunkSize = (range.end - range.start) + 1;
+      const stream = fs.createReadStream(targetPath, {
+        start: range.start,
+        end: range.end,
+      });
+      const head = {
+        'Content-Range': `bytes ${range.start}-${range.end}/${stat.size}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': 'video/mp4',
+      };
+
+      res.writeHead(StatusCodes.PARTIAL_CONTENT, head);
+      stream.pipe(res);
+      return;
+    }
+
     const head = {
-      'Content-Range': `bytes ${start}-${end}/${fileSize}`,
-      'Accept-Ranges': 'bytes',
-      'Content-Length': chunksize,
+      'Content-Length': stat.size,
       'Content-Type': 'video/mp4',
     };
-
-    res.writeHead(206, head);
-    file.pipe(res);
-  } else {
-    const head = {
-      'Content-Length': fileSize,
-      'Content-Type': 'video/mp4',
-    };
-    res.writeHead(200, head);
-    fs.createReadStream(path)
-      .pipe(res);
+    res.writeHead(StatusCodes.OK, head);
+    fs.createReadStream(targetPath).pipe(res);
+  } catch (error) {
+    res.status(StatusCodes.NOT_FOUND).send();
   }
 });
 

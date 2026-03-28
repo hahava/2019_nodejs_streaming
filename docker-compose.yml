@@ -1,0 +1,43 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: movie-stream-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--quiet', '--eval', 'db.adminCommand("ping").ok']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    image: node:22-alpine
+    container_name: movie-stream-app
+    working_dir: /app
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./:/app
+      - app_back_node_modules:/app/back-end/node_modules
+      - app_front_node_modules:/app/front-end/node_modules
+    command: >
+      sh -c "
+      npm install --prefix back-end &&
+      npm install --prefix front-end &&
+      npm run --prefix front-end build &&
+      npm run --prefix back-end start
+      "
+
+volumes:
+  mongo_data:
+  app_back_node_modules:
+  app_front_node_modules:
