@@ -9,22 +9,33 @@ import http from 'http';
 import ejs from 'ejs';
 import morgan from 'morgan';
 import authRouter from './api/auth/route/authRoute';
-import videoRouter from './api/video/router/videoRouter'
+import videoRouter from './api/video/router/videoRouter';
 import jwtMiddleware from './common/middleware/jwtMiddleware';
 
-dotEnv.config({ path: path.join(__dirname, './.env') });
+const FRONT_DIR = path.join(__dirname, 'front');
+const ENV_PATH = path.join(__dirname, '.env');
+const MONGO_CONNECT_OPTIONS = {
+  useNewUrlParser: true,
+  useFindAndModify: true,
+  useUnifiedTopology: true,
+};
+
+dotEnv.config({ path: ENV_PATH });
+const PORT = Number.parseInt(process.env.PORT, 10) || 5696;
+const LOG_FORMAT = process.env.LOG_LEVEL || 'dev';
 
 const app = express();
+let server = null;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'front')));
-app.set('views', path.join(__dirname, '/front'));
+app.use(express.static(FRONT_DIR));
+app.set('views', FRONT_DIR);
 app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
-app.use(morgan(process.env.LOG_LEVEL));
+app.use(morgan(LOG_FORMAT));
 app.use(jwtMiddleware);
 app.use('/api/auth', authRouter);
 app.use('/api/video', videoRouter);
@@ -33,26 +44,61 @@ app.get('*', (req, res) => {
   res.render('index.html');
 });
 
-const port = process.env.PORT || '5696';
-app.set('common', port);
+app.set('port', PORT);
 
-const server = http.createServer(app);
-server.listen(port, () => {
-  console.log("listen")
+const closeServer = () => new Promise((resolve) => {
+  if (!server) {
+    resolve();
+    return;
+  }
+
+  server.close(() => {
+    resolve();
+  });
 });
 
-mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
+const shutdown = async (signal) => {
+  console.log(`${signal} received. Shutting down server...`);
+  await closeServer();
+  await mongoose.connection.close();
+  process.exit(0);
+};
+
+const startServer = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URL, MONGO_CONNECT_OPTIONS);
     console.log('MongoDB is connected');
-  })
-  .catch(e => {
-    console.error(e);
-    server.close();
-  });
+
+    server = http.createServer(app);
+    server.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+
+    server.on('error', (error) => {
+      console.error('HTTP server error', error);
+    });
+  } catch (error) {
+    console.error('Failed to start server', error);
+    process.exit(1);
+  }
+};
+
+process.on('SIGINT', () => {
+  shutdown('SIGINT')
+    .catch((error) => {
+      console.error('Shutdown failed', error);
+      process.exit(1);
+    });
+});
+
+process.on('SIGTERM', () => {
+  shutdown('SIGTERM')
+    .catch((error) => {
+      console.error('Shutdown failed', error);
+      process.exit(1);
+    });
+});
+
+startServer();
 
 export default app;
