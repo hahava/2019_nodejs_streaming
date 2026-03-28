@@ -32,6 +32,19 @@ $ docker run -itd my-nodejs-programming:latest
 
 프로젝트 실행전 하기 software 필요
 
-- node ~12.0.0
-- yarn ~1.22.00
+- node 22.x (`.nvmrc` / `volta`로 고정)
+- npm 10.x+
 - mongodb 
+
+### Node Version Isolation (venv 대체)
+
+```bash
+# nvm 사용 시
+nvm install
+nvm use
+```
+
+```bash
+# volta 사용 시 (권장)
+volta install node@22.12.0
+```
