@@ -3,4 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element (#root) not found');
+}
+
+ReactDOM.render(<App />, rootElement);
