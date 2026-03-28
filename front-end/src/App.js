@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import Login from './components/Login';
-import Error from './components/Error';
-import Videos from './components/Videos';
-import Home from './components/Home';
-import Player from './components/Player';
 import commonUtil from './common/commonUtil';
+
+const Login = lazy(() => import('./components/Login'));
+const Error = lazy(() => import('./components/Error'));
+const Videos = lazy(() => import('./components/Videos'));
+const Home = lazy(() => import('./components/Home'));
+const Player = lazy(() => import('./components/Player'));
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -22,13 +23,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Switch>
-          <PrivateRoute path={['/index', '/']} exact component={Home} />
-          <PrivateRoute path="/video/:type" exact component={Videos} />
-          <PrivateRoute path="/video/:type/player/:fileName" exact component={Player} />
-          <Route path="/login" exact component={Login} />
-          <Route component={Error} />
-        </Switch>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <PrivateRoute path={['/index', '/']} exact component={Home} />
+            <PrivateRoute path="/video/:type" exact component={Videos} />
+            <PrivateRoute path="/video/:type/player/:fileName" exact component={Player} />
+            <Route path="/login" exact component={Login} />
+            <Route component={Error} />
+          </Switch>
+        </Suspense>
       </BrowserRouter>
     </div>
   );
