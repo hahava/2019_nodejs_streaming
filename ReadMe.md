@@ -38,9 +38,11 @@ $ npm run watch
 
 ### docker
 ```bash
-$ docker build -t my-nodejs-programming:latest ./
+$ docker compose up --build -d
 
-$ docker run -itd my-nodejs-programming:latest
+$ docker compose logs -f app
+
+$ docker compose down
 ```
 
 ### Prerequisites
